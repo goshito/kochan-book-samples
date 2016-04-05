@@ -8,18 +8,18 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 5, 2016, 6:40 PM
+ * Created on April 5, 2016, 7:42 PM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-/*
- * Program 9.3, Revising the Program to Determine Tomorow's Date
+/*  Chapter 9
+ *  Program 9.4 Revising the Program to Determine Tomorrow's Date, Version 2
  */
 
-// Program to determine tomorow's date
+// Program to determine tomorrow's date
 
 struct date {
     int month;
@@ -27,57 +27,68 @@ struct date {
     int year;
 };
 
-int main(int argc, char** argv) {
-    struct date today, tomorow;
+// Function to calculate tomorrow's date
+
+struct date dateUpdate(struct date today) {
+    struct date tomorrow;
     int numberOfDays(struct date d);
     
-    printf("Enter today's date (mm dd yyyy): ");
-    scanf("%i%i%i", &today.month, &today.day, &today.year);
-    
     if (today.day != numberOfDays(today)) {
-        tomorow.day = today.day + 1;
-        tomorow.month = today.month;
-        tomorow.year = today.year;
-    } else if (today.month == 12) {    //end of year
-        tomorow.day = 1;
-        tomorow.month = 1;
-        tomorow.year = today.year + 1;
-    } else {                           // end of month
-        tomorow.day = 1;
-        tomorow.month = today.month + 1;
-        tomorow.year = today.year;
+        tomorrow.day = today.day + 1;
+        tomorrow.month = today.month;
+        tomorrow.year = today.year;
+    } else if (today.month == 12) {     // end of year
+        tomorrow.day = 1;
+        tomorrow.month = 1;
+        tomorrow.year = today.year + 1;
+    } else {                            // end of month
+        tomorrow.day = 1;
+        tomorrow.month = today.month + 1;
+        tomorrow.year = today.year;
     }
     
-    printf("Tomorow's date is %i/%i/%.2i. \n", tomorow.month, tomorow.day, tomorow.year % 100);
-    
-    return (EXIT_SUCCESS);
+    return tomorrow;
 }
-    
-    // Function to find the number of days in a month
-    
+
+// Function to find the number of days in a month
+
 int numberOfDays(struct date d) {
     int days;
     bool isLeapYear(struct date d);
     const int daysPerMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     
-    if (isLeapYear(d) == true && d.month == 2)
+    if (isLeapYear && d.month == 2)
         days = 29;
     else
         days = daysPerMonth[d.month - 1];
-        
+    
     return days;
 }
-    
-// Function to determine if it's a leap year
-    
+
+// Function to determine of it's a leap year
+
 bool isLeapYear(struct date d) {
     bool leapYearFlag;
-        
-    if ((d.year % 4 == 0 && d.year % 100 != 0) || d.year % 400 == 0)
+    
+    if ((d.year % 4 == 0 && d.year % 100 != 0) || d.year % 400 == 0 )
         leapYearFlag = true;    // It's a leap year
     else
         leapYearFlag = false;   // Not a leap year
-
+    
     return leapYearFlag;
+}
+
+int main(int argc, char** argv) {
+    struct date dateUpdate(struct date today);
+    struct date thisDay, nextDay;
+    
+    printf("Enter today's date (mm dd yyyy): ");
+    scanf("%i%i%i", &thisDay.month, &thisDay.day, &thisDay.year);
+    
+    nextDay = dateUpdate(thisDay);
+    
+    printf("Tomorrow's date is %i/%i/%.2i.\n", nextDay.month, nextDay.day, nextDay.year % 100);
+
+    return (EXIT_SUCCESS);
 }
 
