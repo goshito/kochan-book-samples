@@ -15,7 +15,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-/*  Chapter 9
+/* Chapter 9
  *  Program 9.4 Revising the Program to Determine Tomorrow's Date, Version 2
  */
 
