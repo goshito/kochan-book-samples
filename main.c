@@ -8,63 +8,43 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 6, 2016, 10:26 PM
+ * Created on April 6, 2016, 11:13 PM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
- * Chapter 9, Program 9.6, Illustrating Arrays of Structures
+ * Chapter 9, Program 9.7, Illustrating Structures and Arrays
  */
 
-// Program to illustrate arrays of structures
-
-struct time {
-    int hour;
-    int minutes;
-    int seconds;
-};
+// Program to illustrate structures and arrays
 
 int main(int argc, char** argv) {
-    struct time timeUpdate(struct time now);
-    struct time testTimes[5] = 
-        { {11, 59, 59}, {12, 0, 0}, {1, 29, 59},
-        {23, 59, 59}, {19, 12, 27} };
     int i;
     
-    for (i = 0; i < 5; ++i) {
-        printf("Time is %.2i:%.2i:%.2i", testTimes[i].hour,
-                testTimes[i].minutes, testTimes[i].seconds);
-        
-        testTimes[i] = timeUpdate(testTimes[i]);
-        
-        printf(" ...one second later it's %.2i:%.2i:%.2i\n",
-            testTimes[i].hour, testTimes[i].minutes, testTimes[i].seconds);
-    }    
+    struct month {
+        int numberOfDays;
+        char name[3];
+    };
+    
+    const struct month months[12] = {
+    { 31, {'J', 'a', 'n'} },  { 28, {'F', 'e', 'b'} },
+    { 31, {'M', 'a', 'r'} },  { 30, {'A', 'p', 'r'} },
+    { 31, {'M', 'a', 'y'} },  { 30, {'J', 'u', 'n'} },
+    { 30, {'J', 'u', 'l'} },  { 31, {'A', 'u', 'g'} },
+    { 30, {'S', 'e', 'p'} },  { 31, {'O', 'c', 't'} },
+    { 30, {'N', 'o', 'v'} },  { 31, {'D', 'e', 'c'} }
+    };
+    
+    printf("Month   Number of Days\n");
+    printf("-----   --------------\n");
+    
+    for (i = 0; i < 12; ++i)
+        printf(" %c%c%c         %i\n",
+                months[i].name[0], months[i].name[1],
+                months[i].name[2], months[i].numberOfDays);
 
     return (EXIT_SUCCESS);
-}
-
-// Function to update time by one second
-
-struct time timeUpdate(struct time now) {
-    ++now.seconds;
-    
-    if (now.seconds == 60) {        // next minute
-        now.seconds = 0;
-        ++now.minutes;
-        
-        if (now.minutes == 60) {    // next hour
-            now.minutes = 0;
-            ++now.hour;
-            
-            if (now.hour == 24) {   // midnight
-                now.hour = 0;
-            }
-        }
-    }
-    
-    return now;
 }
 
