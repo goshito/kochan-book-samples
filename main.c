@@ -8,17 +8,17 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 6, 2016, 12:12 AM
+ * Created on April 6, 2016, 10:26 PM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
- * Chapter 9, Program 9.5 Updating Time by One Second
+ * Chapter 9, Program 9.6, Illustrating Arrays of Structures
  */
 
-// Program to update the time by one second
+// Program to illustrate arrays of structures
 
 struct time {
     int hour;
@@ -28,14 +28,20 @@ struct time {
 
 int main(int argc, char** argv) {
     struct time timeUpdate(struct time now);
-    struct time currentTime, nextTime;
+    struct time testTimes[5] = 
+        { {11, 59, 59}, {12, 0, 0}, {1, 29, 59},
+        {23, 59, 59}, {19, 12, 27} };
+    int i;
     
-    printf("Enter the time (hh:mm:ss): ");
-    scanf("%i:%i:%i", &currentTime.hour, &currentTime.minutes, &currentTime.seconds);
-    
-    nextTime = timeUpdate(currentTime);
-    
-    printf("Updated time is %.2i.%.2i.%.2i\n", nextTime.hour, nextTime.minutes, nextTime.seconds);
+    for (i = 0; i < 5; ++i) {
+        printf("Time is %.2i:%.2i:%.2i", testTimes[i].hour,
+                testTimes[i].minutes, testTimes[i].seconds);
+        
+        testTimes[i] = timeUpdate(testTimes[i]);
+        
+        printf(" ...one second later it's %.2i:%.2i:%.2i\n",
+            testTimes[i].hour, testTimes[i].minutes, testTimes[i].seconds);
+    }    
 
     return (EXIT_SUCCESS);
 }
