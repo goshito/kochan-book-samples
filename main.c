@@ -8,42 +8,47 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 6, 2016, 11:13 PM
+ * Created on April 11, 2016, 12:09 AM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
- * Chapter 9, Program 9.7, Illustrating Structures and Arrays
+ * Chapter 10, Program 10.1, Concatenating Character Arrays
  */
 
-// Program to illustrate structures and arrays
+// Function to concatenate two character arrays
+
+void concat(char result[], const char str1[], int n1, const char str2[], int n2) {
+    int i, j;
+    
+    // copy str1 to result
+    
+    for (i = 0; i < n1; ++i)
+        result[i] = str1[i];
+    
+    // copy str2 to result
+    
+    for (j = 0; j < n2; ++j)
+        result[n1 + j] = str2[j];
+}
 
 int main(int argc, char** argv) {
+    
+    void concat (char result[], const char str1[], int n1, const char str2[], int n2);
+    
+    const char s1[5] = {'T', 'e', 's', 't', ' '};
+    const char s2[6] = {'W', 'o', 'r', 'k', 's', '.'};
+    char s3[11];
     int i;
     
-    struct month {
-        int numberOfDays;
-        char name[3];
-    };
+    concat(s3, s1, 5, s2, 6);
     
-    const struct month months[12] = {
-    { 31, {'J', 'a', 'n'} },  { 28, {'F', 'e', 'b'} },
-    { 31, {'M', 'a', 'r'} },  { 30, {'A', 'p', 'r'} },
-    { 31, {'M', 'a', 'y'} },  { 30, {'J', 'u', 'n'} },
-    { 30, {'J', 'u', 'l'} },  { 31, {'A', 'u', 'g'} },
-    { 30, {'S', 'e', 'p'} },  { 31, {'O', 'c', 't'} },
-    { 30, {'N', 'o', 'v'} },  { 31, {'D', 'e', 'c'} }
-    };
+    for (i = 0; i < 11; ++i)
+        printf("%c", s3[i]);
     
-    printf("Month   Number of Days\n");
-    printf("-----   --------------\n");
-    
-    for (i = 0; i < 12; ++i)
-        printf(" %c%c%c         %i\n",
-                months[i].name[0], months[i].name[1],
-                months[i].name[2], months[i].numberOfDays);
+    printf("\n");
 
     return (EXIT_SUCCESS);
 }
