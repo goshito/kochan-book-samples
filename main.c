@@ -8,37 +8,47 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 12:45 AM
+ * Created on April 11, 2016, 1:25 AM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
- * Chapter 10, Program 10.2, Counting the Characters in a String
+ * Chapter 10, Program 10.3, Concatenating Character Strings
  */
-
-// Function to count the number of characters in a string
-
-int stringLength(const char string[]) {
-    
-    int count = 0;
-    
-    while (string[count] != '\0')
-        ++count;
-    
-    return count;
-}
-
 int main(int argc, char** argv) {
     
-    int stringLength(const char string[]);
-    const char word1[] = {'a', 's', 't', 'e', 'r', '\0'};
-    const char word2[] = {'a', 't', '\0'};
-    const char word3[] = {'a', 'w', 'e', '\0'};
+    void concat(char result[], const char str1[], const char str2[]);
+    const char s1[] = {"Test "};
+    const char s2[] = {"works."};
+    char s3[20];
     
-    printf("%i  %i  %i\n", stringLength(word1), stringLength(word2), stringLength(word3));
+    concat(s3, s1, s2);
+    
+    printf("%s\n", s3);
 
     return (EXIT_SUCCESS);
+}
+
+// Function to concatenate two character strings
+
+void concat(char result[], const char str1[], const char str2[]) {
+    
+    int i, j;
+    
+    // copy str1 to result
+    
+    for (i = 0; str1[i] != '\0'; ++i)
+        result[i] = str1[i];
+    
+    // copy str2 to result
+    
+    for (j = 0; str2[j] != '\0'; ++j)
+        result[i + j] = str2[j];
+    
+    // Terminate the concatenated string with a null character
+    
+    result[i + j] = '\0';
 }
 
