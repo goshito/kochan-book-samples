@@ -8,47 +8,36 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 12:09 AM
+ * Created on April 11, 2016, 12:45 AM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
- * Chapter 10, Program 10.1, Concatenating Character Arrays
+ * Chapter 10, Program 10.2, Counting the Characters in a String
  */
 
-// Function to concatenate two character arrays
+// Function to count the number of characters in a string
 
-void concat(char result[], const char str1[], int n1, const char str2[], int n2) {
-    int i, j;
+int stringLength(const char string[]) {
     
-    // copy str1 to result
+    int count = 0;
     
-    for (i = 0; i < n1; ++i)
-        result[i] = str1[i];
+    while (string[count] != '\0')
+        ++count;
     
-    // copy str2 to result
-    
-    for (j = 0; j < n2; ++j)
-        result[n1 + j] = str2[j];
+    return count;
 }
 
 int main(int argc, char** argv) {
     
-    void concat (char result[], const char str1[], int n1, const char str2[], int n2);
+    int stringLength(const char string[]);
+    const char word1[] = {'a', 's', 't', 'e', 'r', '\0'};
+    const char word2[] = {'a', 't', '\0'};
+    const char word3[] = {'a', 'w', 'e', '\0'};
     
-    const char s1[5] = {'T', 'e', 's', 't', ' '};
-    const char s2[6] = {'W', 'o', 'r', 'k', 's', '.'};
-    char s3[11];
-    int i;
-    
-    concat(s3, s1, 5, s2, 6);
-    
-    for (i = 0; i < 11; ++i)
-        printf("%c", s3[i]);
-    
-    printf("\n");
+    printf("%i  %i  %i\n", stringLength(word1), stringLength(word2), stringLength(word3));
 
     return (EXIT_SUCCESS);
 }
