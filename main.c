@@ -8,28 +8,41 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 1:41 PM
+ * Created on April 11, 2016, 2:23 PM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
 
 /*
- * Program 10.5, Reading Strings with scanf
+ * Chapter 10, Program 10.6, Reading Lines of Data
  */
-
-// Program to illustrate the %s scanf format characters
-
 int main(int argc, char** argv) {
     
-    char s1[81], s2[81], s3[81];
+    int i;
+    char line[81];
+    void readLine(char buffer[]);
     
-    printf("Enter text:\n");
-    
-    scanf("%s%s%s", s1, s2, s3);
-    
-    printf("\ns1 = %s\ns2 = %s\ns3 = %s\n", s1, s2, s3);
+    for (i = 0; i < 3; ++i) {
+        readLine(line);
+        printf("%s\n\n", line);
+    }
 
     return (EXIT_SUCCESS);
+}
+
+// Function to read a line of text from the terminal
+
+void readLine(char buffer[]) {
+    char character;
+    int i = 0;
+    
+    do {
+        character = getchar();
+        buffer[i] = character;
+        ++i;
+    } while (character != '\n');
+    
+    buffer[i - 1] = '\0';
 }
 
