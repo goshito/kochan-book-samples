@@ -8,47 +8,45 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 1:25 AM
+ * Created on April 11, 2016, 1:15 PM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /*
- * Chapter 10, Program 10.3, Concatenating Character Strings
+ * Chapter 10, Program 10-4, Test Strings for Equality
  */
-int main(int argc, char** argv) {
-    
-    void concat(char result[], const char str1[], const char str2[]);
-    const char s1[] = {"Test "};
-    const char s2[] = {"works."};
-    char s3[20];
-    
-    concat(s3, s1, s2);
-    
-    printf("%s\n", s3);
 
-    return (EXIT_SUCCESS);
+// Function to determine if two strings are equal
+
+bool equalStrings(const char s1[], const char s2[]) {
+    
+    int i = 0;
+    bool areEqual;
+    
+    while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+        ++i;
+    
+    if (s1[i] == '\0' && s2[i] == '\0')
+        areEqual = true;
+    else
+        areEqual = false;
+    
+    return areEqual;
 }
 
-// Function to concatenate two character strings
+int main(int argc, char** argv) {
+    
+    bool equalStrings(const char s1[], const char s2[]);
+    const char stra[] = "string compare test";
+    const char strb[] = "string";
+    
+    printf("%i\n", equalStrings(stra, strb));
+    printf("%i\n", equalStrings(stra, stra));
+    printf("%i\n", equalStrings(strb, "string"));
 
-void concat(char result[], const char str1[], const char str2[]) {
-    
-    int i, j;
-    
-    // copy str1 to result
-    
-    for (i = 0; str1[i] != '\0'; ++i)
-        result[i] = str1[i];
-    
-    // copy str2 to result
-    
-    for (j = 0; str2[j] != '\0'; ++j)
-        result[i + j] = str2[j];
-    
-    // Terminate the concatenated string with a null character
-    
-    result[i + j] = '\0';
+    return (EXIT_SUCCESS);
 }
 
