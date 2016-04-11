@@ -8,41 +8,53 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 2:23 PM
+ * Created on April 11, 2016, 3:40 PM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /*
- * Chapter 10, Program 10.6, Reading Lines of Data
+ * Chapter 10, Program 10.7, Counting Words
  */
-int main(int argc, char** argv) {
-    
-    int i;
-    char line[81];
-    void readLine(char buffer[]);
-    
-    for (i = 0; i < 3; ++i) {
-        readLine(line);
-        printf("%s\n\n", line);
-    }
 
-    return (EXIT_SUCCESS);
+// Function to determine if a character is alphabetic
+
+bool alphabetic(const char c) {
+    if ( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') )
+        return true;
+    else
+        return false;
 }
 
-// Function to read a line of text from the terminal
+// Function to count the number of words in a string
 
-void readLine(char buffer[]) {
-    char character;
-    int i = 0;
+int countWords(const char string[]) {
+    int i, wordCount = 0;
+    bool lookingForWord = true, alphabetic(const char c);
     
-    do {
-        character = getchar();
-        buffer[i] = character;
-        ++i;
-    } while (character != '\n');
+    for (i = 0; string[i] != '\0'; ++i)
+        if (alphabetic(string[i])) {
+            if (lookingForWord) {
+                ++wordCount;
+                lookingForWord = false;
+            }
+        } else
+            lookingForWord = true;
     
-    buffer[i - 1] = '\0';
+    return wordCount;
+}
+
+int main(int argc, char** argv) {
+    
+    const char text1[] = "Well, here goes.";
+    const char text2[] = "And here we go... again.";
+    int countWords(const char string[]);
+    
+    printf("%s - words = %i\n", text1, countWords(text1));
+    printf("%s - words = %i\n", text2, countWords(text2));
+
+    return (EXIT_SUCCESS);
 }
 
