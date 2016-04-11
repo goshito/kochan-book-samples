@@ -8,44 +8,27 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 1:15 PM
+ * Created on April 11, 2016, 1:41 PM
  */
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
 
 /*
- * Chapter 10, Program 10-4, Test Strings for Equality
+ * Program 10.5, Reading Strings with scanf
  */
 
-// Function to determine if two strings are equal
-
-bool equalStrings(const char s1[], const char s2[]) {
-    
-    int i = 0;
-    bool areEqual;
-    
-    while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
-        ++i;
-    
-    if (s1[i] == '\0' && s2[i] == '\0')
-        areEqual = true;
-    else
-        areEqual = false;
-    
-    return areEqual;
-}
+// Program to illustrate the %s scanf format characters
 
 int main(int argc, char** argv) {
     
-    bool equalStrings(const char s1[], const char s2[]);
-    const char stra[] = "string compare test";
-    const char strb[] = "string";
+    char s1[81], s2[81], s3[81];
     
-    printf("%i\n", equalStrings(stra, strb));
-    printf("%i\n", equalStrings(stra, stra));
-    printf("%i\n", equalStrings(strb, "string"));
+    printf("Enter text:\n");
+    
+    scanf("%s%s%s", s1, s2, s3);
+    
+    printf("\ns1 = %s\ns2 = %s\ns3 = %s\n", s1, s2, s3);
 
     return (EXIT_SUCCESS);
 }
