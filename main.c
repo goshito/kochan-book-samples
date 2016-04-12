@@ -8,7 +8,7 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 10:24 PM
+ * Created on April 12, 2016, 2:10 PM
  */
 
 #include <stdio.h>
@@ -16,73 +16,76 @@
 #include <stdbool.h>
 
 /*
- * Chapter 10, Program 10.8, Counting Words in a Piece of Text
+ * Chapter 10, Program 10.9, Using the Dictionary Lookup Program
  */
 
-// Function to determine if a character is alphabetic
+// Program to use the dictionary lookup program
 
-bool alphabetic(const char c) {
-    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
-        return true;
-    else
-        return false;
-}
+struct entry {
+    char word[15];
+    char definition[50];
+};
 
-// Function to read a line of text from the terminal
+// Function to determine if two strings are equal
 
-void readLine(char buffer[]) {
-    char character;
+bool equaStrings(const char s1[], const char s2[]) {
     int i = 0;
+    bool areEqual;
     
-    do {
-        character = getchar();
-        buffer[i] = character;
+    while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
         ++i;
-    } while (character != '\n');
     
-    buffer[i - 1] = '\0';
+    if (s1[i] == '\0' && s2[i] == '\0')
+        areEqual = true;
+    else
+        areEqual = false;
+    
+    return areEqual;
 }
 
-// Function to count the number of words in the a string
+// Function to look up a word inside a dictionary
 
-int countWords(const char string[]) {
-    int i, wordCount = 0;
-    bool lookingForWord = true, alphabetic(const char c);
+int lookup (const struct entry dictionary[], const char search[],
+            const int entries) {
+    int i;
+    bool equaStrings(const char s1[], const char s2[]);
     
-    for (i = 0; string[i] != '\0'; ++i)
-        if (alphabetic(string[i])) {
-            if (lookingForWord) {
-                ++wordCount;
-                lookingForWord = false;
-            }
-        }
-        else
-            lookingForWord = true;
+    for (i = 0; i < entries; ++i)
+        if (equaStrings(search, dictionary[i].word))
+            return i;
     
-    return wordCount;
+    return -1;
 }
 
 int main(int argc, char** argv) {
-    char text[81];
-    int totalWords = 0;
-    int countWords(const char string[]);
-    void readLine(char buffer[]);
-    bool endOfText = false;
+    const struct entry dictionary[100] = {
+        {"aardvark",    "a burrowing African mammal"       },
+        {"abyss",       "a botomless pit"                  },
+        {"acumen",      "mentally sharp; keen"             },
+        {"addle",       "to become confused"               },
+        {"aerie",       "a high nest"                      },
+        {"affix",       "to append; attach"                },
+        {"agar",        "a jelly made from seaweed"        },
+        {"ahoy",        "a nautical call of greeting"      },
+        {"aigrette",    "an ornamental cluster of feathers"},
+        {"ajar",        "partially opened"                 }        
+    };
     
-    printf("Type in your text.\n");
-    printf("When you are done, press 'RETURN.\n\n");
+    char word[10];
+    int entries = 10;
+    int entry;
+    int lookup(const struct entry dictionary[], const char search[],
+               const int entries);
     
-    while (! endOfText) {
-        readLine(text);
-        
-        if (text[0] == '\0')
-            endOfText = true; //How come enter has to be pressed twice to end text entering?
-        else
-            totalWords += countWords(text);
-    }
+    printf("Enter word: ");
+    scanf("%14s", word);
+    entry = lookup(dictionary, word, entries);
     
-    printf("\nThere are %i words in the above text.\n", totalWords);
-
+    if (entry != -1)
+        printf("%s\n", dictionary[entry].definition);
+    else
+        printf("Sorry, the word %s is not in my dictionary.\n", word);
+    
     return (EXIT_SUCCESS);
 }
 
