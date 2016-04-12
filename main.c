@@ -8,7 +8,7 @@
  * File:   main.c
  * Author: georgi
  *
- * Created on April 11, 2016, 3:40 PM
+ * Created on April 11, 2016, 10:24 PM
  */
 
 #include <stdio.h>
@@ -16,19 +16,34 @@
 #include <stdbool.h>
 
 /*
- * Chapter 10, Program 10.7, Counting Words
+ * Chapter 10, Program 10.8, Counting Words in a Piece of Text
  */
 
 // Function to determine if a character is alphabetic
 
 bool alphabetic(const char c) {
-    if ( (c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') )
+    if ((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))
         return true;
     else
         return false;
 }
 
-// Function to count the number of words in a string
+// Function to read a line of text from the terminal
+
+void readLine(char buffer[]) {
+    char character;
+    int i = 0;
+    
+    do {
+        character = getchar();
+        buffer[i] = character;
+        ++i;
+    } while (character != '\n');
+    
+    buffer[i - 1] = '\0';
+}
+
+// Function to count the number of words in the a string
 
 int countWords(const char string[]) {
     int i, wordCount = 0;
@@ -40,20 +55,33 @@ int countWords(const char string[]) {
                 ++wordCount;
                 lookingForWord = false;
             }
-        } else
+        }
+        else
             lookingForWord = true;
     
     return wordCount;
 }
 
 int main(int argc, char** argv) {
-    
-    const char text1[] = "Well, here goes.";
-    const char text2[] = "And here we go... again.";
+    char text[81];
+    int totalWords = 0;
     int countWords(const char string[]);
+    void readLine(char buffer[]);
+    bool endOfText = false;
     
-    printf("%s - words = %i\n", text1, countWords(text1));
-    printf("%s - words = %i\n", text2, countWords(text2));
+    printf("Type in your text.\n");
+    printf("When you are done, press 'RETURN.\n\n");
+    
+    while (! endOfText) {
+        readLine(text);
+        
+        if (text[0] == '\0')
+            endOfText = true; //How come enter has to be pressed twice to end text entering?
+        else
+            totalWords += countWords(text);
+    }
+    
+    printf("\nThere are %i words in the above text.\n", totalWords);
 
     return (EXIT_SUCCESS);
 }
